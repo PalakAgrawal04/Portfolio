@@ -5,18 +5,18 @@ import SectionTitle from '@/components/ui/SectionTitle';
 import Button from '@/components/ui/Button';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import emailjs from 'emailjs-com';
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
     const ctx = gsap.context(() => {
-      // Animate form
       gsap.fromTo(
         '.contact-element',
         { y: 30, opacity: 0 },
@@ -40,105 +40,58 @@ export default function ContactSection() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Here you would typically send the form data to your backend API
-    // For this example, we'll simulate a successful submission after a delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      
-      // Reset form
+
+    try {
       if (formRef.current) {
+        const formData = new FormData(formRef.current);
+
+        await emailjs.send(
+          'YOUR_SERVICE_ID',       // Replace with your EmailJS Service ID
+          'YOUR_TEMPLATE_ID',      // Replace with your EmailJS Template ID
+          {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message'),
+          },
+          'YOUR_PUBLIC_KEY'        // Replace with your EmailJS Public Key
+        );
+
+        setSubmitSuccess(true);
         formRef.current.reset();
       }
-      
-      // Reset success message after a few seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    }, 1500);
+    } catch (error) {
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    }
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="py-20 bg-secondary">
-      <div className="container mx-auto px-4">
-        <SectionTitle 
-          title="Get In Touch" 
-          subtitle="Interested in working together? Fill out the form below, and I'll get back to you soon."
-          alignment="center"
-        />
-        
+    <section ref={sectionRef} id="contact" className="py-20  bg-secondary rounded-2xl shadow-lg">
+      <div className="container mx-auto  px-6 lg:px-12">
+        <SectionTitle title="Get In Touch" alignment="center" />
         <div className="max-w-lg mx-auto mt-12">
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+            {['name', 'email', 'subject', 'message'].map((field) => (
+              <div className="contact-element " key={field}>
+                <label htmlFor={field} className="block text-primary font-semibold mb-2">{`Your ${field.charAt(0).toUpperCase() + field.slice(1)}`}</label>
+                {field === 'message' ? (
+                  <textarea id={field} name={field} rows={5} required className="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder={`Enter your ${field}...`}></textarea>
+                ) : (
+                  <input type={field === 'email' ? 'email' : 'text'} id={field} name={field} required className="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder={`Enter your ${field}...`} />
+                )}
+              </div>
+            ))}
+
             <div className="contact-element opacity-0">
-              <label htmlFor="name" className="block text-accent font-medium mb-2">
-                Your Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                placeholder="John Doe"
-              />
-            </div>
-            
-            <div className="contact-element opacity-0">
-              <label htmlFor="email" className="block text-accent font-medium mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                placeholder="john@example.com"
-              />
-            </div>
-            
-            <div className="contact-element opacity-0">
-              <label htmlFor="subject" className="block text-accent font-medium mb-2">
-                Subject
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                placeholder="Project Inquiry"
-              />
-            </div>
-            
-            <div className="contact-element opacity-0">
-              <label htmlFor="message" className="block text-accent font-medium mb-2">
-                Your Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-                placeholder="Tell me about your project..."
-              ></textarea>
-            </div>
-            
-            <div className="contact-element opacity-0">
-              <Button 
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full"
-              >
+              <Button type="submit" disabled={isSubmitting} className="w-full text-white bg-primary hover:bg-secondary transition-colors duration-300">
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
-              
+
               {submitSuccess && (
-                <p className="text-green-600 mt-4 text-center">
-                  Your message has been sent successfully! I'll get back to you soon.
-                </p>
+                <p className="text-green-600 mt-4 text-center">Your message has been sent successfully! I will get back to you soon.</p>
               )}
             </div>
           </form>

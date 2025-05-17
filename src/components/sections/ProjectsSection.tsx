@@ -6,31 +6,44 @@ import ProjectCard from '@/components/ui/ProjectCard';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-// Sample project data
+// Project data
 const projects = [
   {
     id: 1,
-    title: 'E-commerce Platform',
-    description: 'A fully responsive e-commerce website with shopping cart functionality.',
-    tags: ['Next.js', 'Tailwind CSS', 'Stripe'],
-    imageUrl: '/images/project1.jpg',
-    projectUrl: '/projects/e-commerce',
+    title: 'TechFiesta Hackathon Website',
+    description: `Crafted a hackathon registration portal attracting 5000+ visitors.
+    Deployed the website with 150+ team registrations to date.`,
+    tags: ['ReactJS', 'GSAP', 'Figma'],
+    imageUrl: '/images/techfiesta.jpeg',
+    projectUrl: 'https://techfiesta.pict.edu/',
   },
   {
     id: 2,
-    title: 'Task Management App',
-    description: 'A drag-and-drop task management application with authentication.',
-    tags: ['React', 'Firebase', 'GSAP'],
-    imageUrl: '/images/project2.jpg',
-    projectUrl: '/projects/task-management',
+    title: 'Nike Website Redesign',
+    description: `Transformed the Nike website UI using React.js, React DOM, and GSAP,
+    enhancing shopping experience with dynamic animations and intuitive navigation.`,
+    tags: ['ReactJS', 'GSAP', 'React DOM'],
+    imageUrl: '/images/nike.png',
+    projectUrl: 'https://nike-trident-reimagine-round1.vercel.app/',
   },
   {
     id: 3,
-    title: 'Blog Platform',
-    description: 'A modern blog platform with a custom CMS and comment system.',
-    tags: ['Next.js', 'Sanity CMS', 'Vercel'],
-    imageUrl: '/images/project3.jpg',
-    projectUrl: '/projects/blog-platform',
+    title: 'General Mills Website Redesign',
+    description: `Redesigned the General Mills website focusing on aesthetic enhancements and seamless UI/UX,
+    creating a visually engaging and user-friendly experience.`,
+    tags: ['ReactJS', 'GSAP', 'CSS', 'JavaScript'],
+    imageUrl: '/images/generalmills.png',
+    projectUrl: 'https://general-mills-trident-reimagine-round2.vercel.app/',
+  },
+  {
+    id: 4,
+    title: 'Event Coding Website',
+    description: `Developed and maintained frontend of event coding website using React, Vite, and Tailwind CSS.
+    Integrated backend RESTful APIs using Django REST framework.
+    Enhanced UI responsiveness and user experience.`,
+    tags: ['ReactJS', 'Tailwind CSS', 'Django REST'],
+    imageUrl: '/images/event.png',
+    projectUrl: 'https://credenz.co.in/',
   },
 ];
 
@@ -41,7 +54,6 @@ export default function ProjectsSection() {
     gsap.registerPlugin(ScrollTrigger);
     
     const ctx = gsap.context(() => {
-      // Animate projects
       gsap.fromTo(
         '.project-card',
         { y: 50, opacity: 0 },
@@ -71,7 +83,7 @@ export default function ProjectsSection() {
         />
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <div key={project.id} className="project-card opacity-0">
               <ProjectCard {...project} />
             </div>
