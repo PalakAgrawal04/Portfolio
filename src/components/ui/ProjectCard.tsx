@@ -139,7 +139,7 @@ export default function ProjectCard({
           {/* Overlay with animating stripes */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
             <div className="w-full h-16 overflow-hidden relative">
-              {[0, 1, 2, 3, 4, 5].map((i) => (
+              {[3, 4, 5] .map((i) => (
                 <div 
                   key={i}
                   className={`absolute h-1 bg-primary left-0 right-0 opacity-30 transition-transform duration-700`}
