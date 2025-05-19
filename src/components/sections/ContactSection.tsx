@@ -198,7 +198,7 @@ export default function ContactSection() {
                           placeholder={`Enter ${field.label.toLowerCase()}...`}
                         />
                         <div 
-                          className={`h-0.5 bg-amber-600 scale-x-0 transition-transform duration-300 origin-left ${
+                          className={`h-0.5 bg-primary/20 scale-x-0 transition-transform duration-300 origin-left ${
                             activeField === field.name ? 'scale-x-100' : ''
                           }`}
                         ></div>
@@ -229,7 +229,7 @@ export default function ContactSection() {
                       placeholder="What is this regarding?"
                     />
                     <div 
-                      className={`h-0.5 bg-amber-600 scale-x-0 transition-transform duration-300 origin-left ${
+                      className={`h-0.5 bg-primary/20 scale-x-0 transition-transform duration-300 origin-left ${
                         activeField === 'subject' ? 'scale-x-100' : ''
                       }`}
                     ></div>
@@ -258,7 +258,7 @@ export default function ContactSection() {
                       placeholder="Tell me about your project or inquiry..."
                     ></textarea>
                     <div 
-                      className={`h-0.5 bg-amber-600 scale-x-0 transition-transform duration-300 origin-left ${
+                      className={`h-0.5 bg-primary/20 scale-x-0 transition-transform duration-300 origin-left ${
                         activeField === 'message' ? 'scale-x-100' : ''
                       }`}
                     ></div>
