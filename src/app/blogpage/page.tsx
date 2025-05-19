@@ -334,34 +334,34 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 1,
-      title: "Will AI Replace Front-end Developers? Let's Find Out!",
+      title: "Front-End Devs vs. AI: Do We Still Matter?",
       snippet: "Is AI coming for front-end developers' jobs? As someone who's been in the trenches of CSS and JavaScript, I've gone from panic to partnership with AI tools. In this article, I share my personal journey with AI in front-end development, explore what AI can and cannot do, and offer practical advice on how to stay relevant in this rapidly evolving landscape. Spoiler alert: We're not being replaced—we're being upgraded.",
-      image: "/images/event.png",
-      link: "https://medium.com/@palaka2805/will-ai-replace-front-end-developers-lets-find-out-e9fd1dfb3ee8",
+      image: "/images/blog1.jpeg",
+      link: "https://medium.com/@palaka2805/front-end-devs-vs-ai-do-we-still-matter-e9fd1dfb3ee8",
       date: "May 20, 2025",
       readTime: 5,
       category: "Development"
     },
-    {
-      id: 2,
-      title: "Color Psychology in UX Design",
-      snippet: "Discover how color choices affect user perception and behavior, and how to strategically use color to enhance your website's user experience.",
-      image: "/images/blog/color-psychology.jpg",
-      link: "https://medium.com/your-username/color-psychology-ux",
-      date: "March 18, 2025",
-      readTime: 9,
-      category: "Design"
-    },
-    {
-      id: 3,
-      title: "NextJS vs Gatsby: Choosing the Right React Framework",
-      snippet: "A detailed comparison of two popular React frameworks, examining their performance, features, learning curve, and ideal project scenarios.",
-      image: "/images/blog/react-frameworks.jpg",
-      link: "https://medium.com/your-username/nextjs-gatsby-comparison",
-      date: "March 5, 2025",
-      readTime: 12,
-      category: "Development"
-    }
+    // {
+    //   id: 2,
+    //   title: "Color Psychology in UX Design",
+    //   snippet: "Discover how color choices affect user perception and behavior, and how to strategically use color to enhance your website's user experience.",
+    //   image: "/images/blog/color-psychology.jpg",
+    //   link: "https://medium.com/your-username/color-psychology-ux",
+    //   date: "March 18, 2025",
+    //   readTime: 9,
+    //   category: "Design"
+    // },
+    // {
+    //   id: 3,
+    //   title: "NextJS vs Gatsby: Choosing the Right React Framework",
+    //   snippet: "A detailed comparison of two popular React frameworks, examining their performance, features, learning curve, and ideal project scenarios.",
+    //   image: "/images/blog/react-frameworks.jpg",
+    //   link: "https://medium.com/your-username/nextjs-gatsby-comparison",
+    //   date: "March 5, 2025",
+    //   readTime: 12,
+    //   category: "Development"
+    // }
   ];
   
   // Extract unique categories from blog posts
