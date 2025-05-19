@@ -54,9 +54,63 @@ export default function HeroSection() {
   const heroRef = useRef(null);
   const textRef = useRef(null);
   const illustrationRef = useRef(null);
+  const illustrationContainerRef = useRef(null);
+  
+  // State for bouncing animation
+  const [isHovering, setIsHovering] = useState(false);
+  const bounceAnimation = useRef(null);
+  
+  // Handle mouse enter
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    // Create bounce animation on hover
+    if (illustrationContainerRef.current) {
+      // Clear any existing animation
+      if (bounceAnimation.current) {
+        bounceAnimation.current.kill();
+      }
+      
+      // Create a new bounce animation
+      bounceAnimation.current = gsap.timeline({ repeat: -1, yoyo: true })
+        .to(illustrationContainerRef.current, {
+          y: "-20px",
+          duration: 0.8,
+          ease: "power2.inOut"
+        })
+        .to(illustrationContainerRef.current, {
+          y: "0px",
+          duration: 0.8,
+          ease: "power2.inOut"
+        });
+    }
+  };
+  
+  // Handle mouse leave
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    // Stop the bouncing animation
+    if (bounceAnimation.current) {
+      bounceAnimation.current.kill();
+      // Return to original position with a smooth animation
+      gsap.to(illustrationContainerRef.current, {
+        y: 0,
+        duration: 0.5,
+        ease: "power3.out"
+      });
+    }
+  };
+  
+  // Empty function as we don't need to track mouse movement for bouncing
+  const handleMouseMove = () => {};
   
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Initial bounce animation on load
+      gsap.fromTo(illustrationContainerRef.current, 
+        { y: -10 },
+        { y: 10, duration: 1.5, ease: "power1.inOut", repeat: -1, yoyo: true }
+      );
+      
       // Timeline for text animation
       const tl = gsap.timeline();
       
@@ -234,32 +288,58 @@ export default function HeroSection() {
           
           {/* Right illustration column - spans 7 columns for more visual impact */}
           <div ref={illustrationRef} className="hero-illustration md:col-span-7 relative">
-            <div className="relative h-[70vh] md:h-[90vh]">
+            {/* Bounce Animation Container */}
+            <div 
+              ref={illustrationContainerRef}
+              className="relative h-[70vh] md:h-[90vh] cursor-pointer"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               {/* Main illustration container */}
-              <div className="relative h-full w-full">
+              <div 
+                className="relative h-full w-full transition-all duration-300"
+              >
                 {/* Add animated decorative elements */}
                 <div className="absolute -top-10 -left-10 w-20 h-20 border-2 border-accent/20 rounded-full animate-spin-slow opacity-50"></div>
                 <div className="absolute top-1/4 -right-6 w-12 h-12 bg-primary/10 rounded-full animate-pulse-slow"></div>
                 
                 {/* Actual illustration */}
-                <Image
-                  src="/images/hero-illustration.png"
-                  alt="Palak - Web Developer"
-                  fill
-                  className="object-contain z-10"
-                  priority
-                />
+                <div className="relative h-full w-full">
+                  <Image
+                    src="/images/hero-illustration.png"
+                    alt="Palak - Web Developer"
+                    fill
+                    className="object-contain z-10"
+                    priority
+                  />
+                </div>
                 
                 {/* Abstract shape behind illustration */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-accent/5 blur-3xl"></div>
+                <div 
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-accent/5 blur-3xl"
+                ></div>
                 
                 {/* Dots pattern */}
-                <div className="absolute bottom-10 right-10 grid grid-cols-4 gap-2 decorator">
+                <div 
+                  className="absolute bottom-10 right-10 grid grid-cols-4 gap-2 decorator"
+                >
                   {[...Array(16)].map((_, i) => (
                     <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary/30"></div>
                   ))}
                 </div>
+                
+                {/* Floating particles */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-accent/20 rounded-full animate-float-slow"></div>
+                  <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-primary/30 rounded-full animate-float"></div>
+                  <div className="absolute top-2/3 left-1/3 w-4 h-4 border border-primary/20 rounded-full animate-pulse"></div>
+                </div>
               </div>
+
+              {/* Shadow effect that moves with bounce */}
+              <div 
+                className={`absolute rounded-full -bottom-4 left-1/2 -translate-x-1/2 w-1/2 h-4 bg-black/10 blur-md transition-all duration-300 ${isHovering ? 'opacity-50 scale-90' : 'opacity-30'}`}
+              ></div>
             </div>
           </div>
         </div>

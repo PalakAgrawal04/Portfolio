@@ -41,7 +41,7 @@ export default function SkillsAndExperienceSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
           <div className="space-y-6">
             {experienceList.map((exp, index) => (
-              <div key={index} className="experience-card bg-white p-6 rounded-xl shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105">
+              <div key={index} className="experience-card bg-white p-6 rounded-xl shadow-md border border-primary/20 transition-transform duration-300 hover:scale-105">
                 <h4 className="text-lg font-bold text-primary">{exp.title}</h4>
                 <p className="text-accent font-medium">{exp.company} - {exp.duration}</p>
                 <p className="text-gray-700 mt-2">{exp.description}</p>
@@ -51,7 +51,7 @@ export default function SkillsAndExperienceSection() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {Object.entries(skillsTree).map(([category, skills], index) => (
-              <div key={index} className="skill-tree-branch bg-gradient-to-r from-white to-secondary rounded-xl p-6 shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105">
+              <div key={index} className="skill-tree-branch bg-gradient-to-r from-white  rounded-xl p-6 shadow-md border border-primary/20 transition-transform duration-300 hover:scale-105">
                 <h3 className="text-2xl font-semibold text-primary mb-4">{category}</h3>
                 <div className="flex flex-wrap gap-4">
                   {skills.map((skill, i) => (

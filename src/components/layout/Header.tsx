@@ -48,7 +48,7 @@ export default function Header() {
           <NavLink href="/">Home</NavLink>
           <NavLink href="#about">About</NavLink>
           <NavLink href="#projects">Projects</NavLink>
-          <NavLink href="#  contact">Contact</NavLink>
+          <NavLink href="#contact">Contact</NavLink>
         </nav>
         <div className="md:hidden">
           {/* Mobile menu button would go here */}
