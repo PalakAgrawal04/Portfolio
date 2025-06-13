@@ -28,19 +28,19 @@ const BackgroundDecorator = () => {
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <div className="relative w-full h-full">
         {/* Top right decorative elements */}
-        <div className="absolute top-10 right-20">
-          <div className="w-12 h-12 border border-accent/30 rounded-full animate-pulse-slow"></div>
+        <div className="absolute top-10 right-20 sm:right-10">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 border border-accent/30 rounded-full animate-pulse-slow"></div>
         </div>
         
         {/* Bottom left decorative elements */}
-        <div className="absolute bottom-20 left-10">
-          <div className="w-24 h-1 bg-primary/20 rotate-45 animate-float-slow"></div>
-          <div className="w-24 h-1 bg-primary/20 rotate-45 translate-y-6 translate-x-4"></div>
-          <div className="w-24 h-1 bg-primary/20 rotate-45 translate-y-12 translate-x-8"></div>
+        <div className="absolute bottom-20 left-10 sm:left-10">
+          <div className="w-16 h-1 sm:w-24 sm:h-1 bg-primary/20 rotate-45 animate-float-slow"></div>
+          <div className="w-16 h-1 sm:w-24 sm:h-1 bg-primary/20 rotate-45 translate-y-4 translate-x-3 sm:translate-y-6 sm:translate-x-4"></div>
+          <div className="w-16 h-1 sm:w-24 sm:h-1 bg-primary/20 rotate-45 translate-y-8 translate-x-6 sm:translate-y-12 sm:translate-x-8"></div>
         </div>
         
         {/* Middle left decorative dot pattern */}
-        <div className="absolute top-1/3 left-16 grid grid-cols-3 gap-2">
+        <div className="absolute top-1/3 left-8 sm:left-16 grid grid-cols-3 gap-1 sm:gap-2">
           {[...Array(9)].map((_, i) => (
             <div key={i} className="w-1 h-1 rounded-full bg-accent/40"></div>
           ))}
@@ -212,33 +212,33 @@ export default function HeroSection() {
       {/* Background decorative elements */}
       <BackgroundDecorator />
       
-      {/* Main content container with reduced padding for less whitespace */}
-      <div className="container mx-auto px-14 py-12 z-10">
-        <div className="grid md:grid-cols-12 gap-8 items-center">
-          {/* Left text column - spans 5 columns on desktop */}
-          <div ref={textRef} className="md:col-span-5 space-y-6">
-            <div className="flex items-center space-x-3 mb-2">
-              <div className="h-0.5 w-8 bg-primary"></div>
-              <span className="text-primary/80 font-medium tracking-[0.25em] text-sm">PORTFOLIO</span>
+      {/* Main content container with responsive padding */}
+      <div className="container mx-auto px-6 sm:px-8 md:px-14 py-8 sm:py-10 md:py-12 z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
+          {/* Text content - full width on mobile, 5 columns on desktop */}
+          <div ref={textRef} className="md:col-span-5 space-y-4 sm:space-y-5 md:space-y-6 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start space-x-3 mb-2">
+              <div className="h-0.5 w-6 sm:w-8 bg-primary"></div>
+              <span className="text-primary/80 font-medium tracking-[0.2em] sm:tracking-[0.25em] text-xs sm:text-sm">PORTFOLIO</span>
             </div>
             
-            <div className="space-y-3 ">
-              <h1 className="font-serif font-bold text-6xl md:text-6xl lg:text-8xl text-primary leading-tight">
+            <div className="space-y-2 sm:space-y-3">
+              <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-primary leading-tight">
                 <span className="hero-greeting block mb-1">HELLO,</span>
                 <span className="relative inline-block">
                   I'M <span className="">{renderLetterSpans('PALAK')}!</span>
                 </span>
               </h1>
               
-              <p className="hero-subtitle text-primary/80 text-lg max-w-lg leading-relaxed font-light">
+              <p className="hero-subtitle text-primary/80 text-base sm:text-lg max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
                 I am a <span className="highlight-word font-medium">web developer</span> and <span className="highlight-word font-medium">designer</span> based in <span className="font-medium tracking-wide">INDIA</span>, 
                 creating beautiful, functional websites and delightful digital experiences.
               </p>
             </div>
             
-            <div className="hero-action mt-8 flex space-x-4 items-center pt-4">
+            <div className="hero-action mt-6 sm:mt-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 items-center justify-center md:justify-start pt-4">
               <Button href="#projects" 
-                className="bg-primary hover:bg-accent text-white px-6 py-3 rounded-md flex items-center space-x-2 hover:translate-y-[-2px] transition-all duration-300 shadow-lg shadow-primary/20 font-medium tracking-wider">
+                className="bg-primary hover:bg-accent text-white px-6 py-3 rounded-md flex items-center space-x-2 hover:translate-y-[-2px] transition-all duration-300 shadow-lg shadow-primary/20 font-medium tracking-wider w-full sm:w-auto justify-center">
                 <span>EXPLORE</span>
                 <svg className="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -254,7 +254,7 @@ export default function HeroSection() {
             </div>
             
             {/* Social links with improved hover effects */}
-            <div className="flex space-x-5 pt-2">
+            <div className="flex space-x-5 pt-2 justify-center md:justify-start">
               <a href="https://instagram.com/p_a_l_a_k.28" target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram Profile" className="text-primary/70 hover:text-accent transition-all duration-300 hover:scale-110">
@@ -286,12 +286,12 @@ export default function HeroSection() {
             </div>
           </div>
           
-          {/* Right illustration column - spans 7 columns for more visual impact */}
-          <div ref={illustrationRef} className="hero-illustration md:col-span-7 relative">
+          {/* Illustration - hidden on small mobile, shown on larger screens */}
+          <div ref={illustrationRef} className="hero-illustration hidden sm:block md:col-span-7 relative">
             {/* Bounce Animation Container */}
             <div 
               ref={illustrationContainerRef}
-              className="relative h-[70vh] md:h-[90vh] cursor-pointer"
+              className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh] cursor-pointer"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -300,8 +300,8 @@ export default function HeroSection() {
                 className="relative h-full w-full transition-all duration-300"
               >
                 {/* Add animated decorative elements */}
-                <div className="absolute -top-10 -left-10 w-20 h-20 border-2 border-accent/20 rounded-full animate-spin-slow opacity-50"></div>
-                <div className="absolute top-1/4 -right-6 w-12 h-12 bg-primary/10 rounded-full animate-pulse-slow"></div>
+                <div className="absolute -top-6 -left-6 sm:-top-10 sm:-left-10 w-12 h-12 sm:w-20 sm:h-20 border-2 border-accent/20 rounded-full animate-spin-slow opacity-50"></div>
+                <div className="absolute top-1/4 -right-4 sm:-right-6 w-8 h-8 sm:w-12 sm:h-12 bg-primary/10 rounded-full animate-pulse-slow"></div>
                 
                 {/* Actual illustration */}
                 <div className="relative h-full w-full">
@@ -321,18 +321,18 @@ export default function HeroSection() {
                 
                 {/* Dots pattern */}
                 <div 
-                  className="absolute bottom-10 right-10 grid grid-cols-4 gap-2 decorator"
+                  className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 grid grid-cols-4 gap-1 sm:gap-2 decorator"
                 >
                   {[...Array(16)].map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary/30"></div>
+                    <div key={i} className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-primary/30"></div>
                   ))}
                 </div>
                 
                 {/* Floating particles */}
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-accent/20 rounded-full animate-float-slow"></div>
-                  <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-primary/30 rounded-full animate-float"></div>
-                  <div className="absolute top-2/3 left-1/3 w-4 h-4 border border-primary/20 rounded-full animate-pulse"></div>
+                  <div className="absolute top-1/4 left-1/4 w-2 sm:w-3 h-2 sm:h-3 bg-accent/20 rounded-full animate-float-slow"></div>
+                  <div className="absolute bottom-1/3 right-1/4 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-primary/30 rounded-full animate-float"></div>
+                  <div className="absolute top-2/3 left-1/3 w-3 sm:w-4 h-3 sm:h-4 border border-primary/20 rounded-full animate-pulse"></div>
                 </div>
               </div>
 

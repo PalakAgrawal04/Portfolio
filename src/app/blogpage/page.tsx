@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/ui/Button';
 import { gsap } from 'gsap';
 import Image from 'next/image';
-import Link from 'next/link';
 
 // SVG Blob Animation Component
 const AnimatedBlob = () => {
@@ -51,15 +50,56 @@ const BackgroundDecorator = () => {
   );
 };
 
+// Define the props type
+
+type BlogCardProps = {
+  title: string;
+  snippet: string;
+  image: string;
+  link: string;
+  date: string;
+  readTime: number;
+  category: string;
+};
+
+type FeaturedBlogProps = {
+  title: string;
+  snippet: string;
+  image: string;
+  link: string;
+  date: string;
+  readTime: number;
+  category: string;
+};
+
+type CategoryFilterProps = {
+  categories: string[];
+  activeCategory: string;
+  setActiveCategory: (category: string) => void;
+};
+
+type SearchBarProps = {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+};
+
 // Blog Card Component with hover effects
-const BlogCard = ({ title, snippet, image, link, date, readTime, category }) => {
-  const cardRef = useRef(null);
+const BlogCard = ({
+  title,
+  snippet,
+  image,
+  link,
+  date,
+  readTime,
+  category,
+}: BlogCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const card = cardRef.current;
-    
+    if (!card) return;
     // Subtle hover animation setup
-    const onMouseMove = (e) => {
+    const onMouseMove = (e: MouseEvent) => {
       const { left, top, width, height } = card.getBoundingClientRect();
       const x = (e.clientX - left) / width;
       const y = (e.clientY - top) / height;
@@ -155,19 +195,20 @@ const BlogCard = ({ title, snippet, image, link, date, readTime, category }) => 
 };
 
 // Featured Blog Component
-const FeaturedBlog = ({ title, snippet, image, link, date, readTime, category }) => {
-  const featuredRef = useRef(null);
+const FeaturedBlog = ({ title, snippet, image, link, date, readTime, category }: FeaturedBlogProps) => {
+  const featuredRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const featured = featuredRef.current;
+    if (!featured) return;
     
-    const onMouseMove = (e) => {
+    const onMouseMove = (e: MouseEvent) => {
       const { left, top, width, height } = featured.getBoundingClientRect();
       const x = (e.clientX - left) / width;
       const y = (e.clientY - top) / height;
       
       // Move the image slightly based on mouse position
-      const imgElement = featured.querySelector('.featured-img');
+      const imgElement = featured.querySelector('.featured-img') as HTMLElement | null;
       if (imgElement) {
         gsap.to(imgElement, {
           x: (x - 0.5) * 20,
@@ -179,7 +220,7 @@ const FeaturedBlog = ({ title, snippet, image, link, date, readTime, category })
     };
     
     const onMouseLeave = () => {
-      const imgElement = featured.querySelector('.featured-img');
+      const imgElement = featured.querySelector('.featured-img') as HTMLElement | null;
       if (imgElement) {
         gsap.to(imgElement, {
           x: 0,
@@ -267,7 +308,7 @@ const FeaturedBlog = ({ title, snippet, image, link, date, readTime, category })
 };
 
 // Filter component
-const CategoryFilter = ({ categories, activeCategory, setActiveCategory }) => {
+const CategoryFilter = ({ categories, activeCategory, setActiveCategory }: CategoryFilterProps) => {
   return (
     <div className="flex flex-wrap gap-2 mb-8">
       <button 
@@ -299,7 +340,7 @@ const CategoryFilter = ({ categories, activeCategory, setActiveCategory }) => {
 };
 
 // Search component
-const SearchBar = ({ searchQuery, setSearchQuery }) => {
+const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   return (
     <div className="relative mb-8">
       <input
@@ -326,7 +367,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
 };
 
 export default function BlogPage() {
-  const pageRef = useRef(null);
+  const pageRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   
