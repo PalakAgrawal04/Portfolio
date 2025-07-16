@@ -58,7 +58,7 @@ export default function HeroSection() {
   
   // State for bouncing animation
   const [isHovering, setIsHovering] = useState(false);
-  const bounceAnimation = useRef(null);
+  const bounceAnimation = useRef<gsap.core.Timeline | null>(null);
   
   // Handle mouse enter
   const handleMouseEnter = () => {
@@ -193,13 +193,13 @@ export default function HeroSection() {
   }, []);
 
   // Function to split text into individual letter spans
-  const renderLetterSpans = (text) => {
-    return text.split('').map((letter, index) => (
-      <span key={index} className="name-letter inline-block">
-        {letter}
-      </span>
-    ));
-  };
+  const renderLetterSpans = (text: string) => {
+  return text.split('').map((letter, index) => (
+    <span key={index} className="name-letter inline-block">
+      {letter}
+    </span>
+  ));
+};
 
   return (
     <div

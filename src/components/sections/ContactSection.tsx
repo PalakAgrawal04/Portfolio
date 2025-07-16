@@ -90,33 +90,49 @@ export default function ContactSection() {
     return () => ctx.revert();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => {
+  const { name, value } = e.target;
+  setFormValues((prev) => ({ ...prev, [name]: value }));
+};
 
-  const handleFocus = (field) => {
-    setActiveField(field);
-  };
+  const handleFocus = (field: string) => {
+  setActiveField(field);
+};
 
   const handleBlur = () => {
     setActiveField('');
   };
 
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+  const handleSubmit = async () => {
+  setIsSubmitting(true);
+  try {
+    const res = await fetch("https://formspree.io/f/mkgbrayy", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formValues),
+    });
+
+    if (res.ok) {
       setSubmitSuccess(true);
       setFormValues({ name: '', email: '', subject: '', message: '' });
-      
+
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
-    }, 1500);
-  };
+    } else {
+      console.error("Failed to send form");
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
+  setIsSubmitting(false);
+};
+
 
   return (
     <section 
@@ -190,7 +206,7 @@ export default function ContactSection() {
                           type={field.type}
                           id={field.name}
                           name={field.name}
-                          value={formValues[field.name]}
+                          value={formValues[field.name as keyof typeof formValues]}
                           onChange={handleChange}
                           onFocus={() => handleFocus(field.name)}
                           onBlur={handleBlur}

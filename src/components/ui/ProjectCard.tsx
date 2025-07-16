@@ -18,21 +18,21 @@ export default function ProjectCard({
   imageUrl = "/api/placeholder/600/400",
   projectUrl = "#",
 }: ProjectCardProps) {
-  const cardRef = useRef(null);
-  const contentRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isClicked, setIsClicked] = useState(false);
   
   // Track mouse position for the glow effect
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  if (!cardRef.current) return;
+  const rect = cardRef.current.getBoundingClientRect();
+  setMousePosition({
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  });
+};
 
   useEffect(() => {
     const card = cardRef.current;
@@ -47,19 +47,19 @@ export default function ProjectCard({
     };
 
     // Handle 3D rotation effect
-    const handleMove = (e) => {
-      if (!isHovered) return;
-      const rect = card.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      
-      const rotateY = ((mouseX - centerX) / centerX) * 10;
-      const rotateX = -((mouseY - centerY) / centerY) * 10;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-    };
+    const handleMove = (e: MouseEvent) => {
+  if (!isHovered) return;
+  const rect = card.getBoundingClientRect();
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
+  const rotateY = ((mouseX - centerX) / centerX) * 10;
+  const rotateX = -((mouseY - centerY) / centerY) * 10;
+
+  card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+};
 
     // Reset card position
     const handleMouseLeave = () => {
