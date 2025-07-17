@@ -53,9 +53,9 @@ export default function Header() {
         </nav>
         <div className="md:hidden">
           {/* Mobile menu button would go here */}
-          <button className="text-accent hover:text-primary">
-            Menu
-          </button>
+          <Link href="/blogpage" className="text-primary hover:text-primary">
+            Blog
+          </Link>
         </div>
       </div>
     </header>
